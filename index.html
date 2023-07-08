@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>RT-2</title>
+
+    <meta name="description" content="RT-2">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- <base href="/"> -->
+
+        <!--FACEBOOK-->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rt2-anon.github.io/"/>
+    <meta property="og:title" content="RT-2" />
+    <meta property="og:description" content="Project page for RT-2" />
+
+        <!--TWITTER-->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="RT-2" />
+    <meta name="twitter:description" content="Project page for RT-2" />
+
+
+<!--     <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
+  <!-- <link rel="icon" type="image/png" href="img/seal_icon.png"> -->
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    
+    <script src="js/app.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-52J0PM8XKV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-52J0PM8XKV');
+</script>
+	
+    <style>
+        .nav-pills {
+          position: relative;
+          display: inline;
+        }
+        .imtip {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                RT-2:  Vision-Language-Action Models</br>Transfer Web Knowledge to Robotic Control </br> 
+                <!--<small>
+                    CoRL 2021
+                </small>-->
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="list-inline">
+                <br>                
+                </ul>
+            </div>
+        </div>
+           
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                
+                <h3>
+                    Abstract
+                </h3>
+                <p class="text-justify">
+By transferring knowledge from large, diverse, task-agnostic datasets, modern machine learning models can enable solving specific downstream tasks either zero-shot or with small task-specific datasets to a high level of performance. 
+While this capability has been demonstrated in other fields such as computer vision, natural language processing or speech recognition, it remains to be shown in robotics, where the generalization and fine-tuning capabilities of the models are particularly critical due to the difficulty of collecting real-world robotic data.
+We argue that one of the keys to the success of such general robotic models lies with open-ended task-agnostic training, combined with high-capacity architectures that can absorb all of the diverse, robotic data.
+In this paper, we present a model class, dubbed Robotics Transformer, that exhibits promising scalable, pre-trained model properties.
+We verify our conclusions in a comprehensive study of different model classes and their ability to generalize as a function of the data size, model size, and data diversity based on a large-scale data collection on real robots performing real-world tasks.
+                </p>            
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+            	<br>
+                <h3>
+                    Videos
+                </h3>
+               
+		<p class="text-justify">		
+		Below, we show a few videos showing examples of RT-2 execution
+		</p>
+		<p style="test-align:center;">
+					<video id="v0" width="100%" playsinline muted loop controls>
+                       <source src="img/saycan_rt1_demo1_comp.mp4" type="video/mp4">
+                   </video>		
+        </p>
+		<p class="text-justify">
+
+         For the second task "Roses are red, violets are blue, bring me the rice chips from the drawer, and a napkin too." the execution 
+			and planning process are shown in the video below.
+		</p>
+        <p style="test-align:center;">
+					<video id="v0" width="100%" playsinline muted loop controls>
+                       <source src="img/saycan_rt1_demo2_comp.mp4" type="video/mp4">
+                   </video>		
+        </p>
+        <p class="text-justify">
+
+         In the next example, we show SayCan is able to plan and execute a very long-horizon task involving 50+ steps.
+		</p>
+        <p style="test-align:center;">
+					<video id="v0" width="100%" playsinline muted loop controls>
+                       <source src="img/saycan_rt1_demo3_comp.mp4" type="video/mp4">
+                   </video>		
+
+	    </div>
+        </div>
+        
+    </div>
+</body>
+</html>
