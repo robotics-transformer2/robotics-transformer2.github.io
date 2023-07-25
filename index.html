@@ -29,7 +29,7 @@
   <!-- <link rel="icon" type="image/png" href="img/seal_icon.png"> -->
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
     <link rel="stylesheet" href="css/app.css">
@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
     
@@ -90,15 +90,28 @@
                     Abstract
                 </h3>
                 <p class="text-justify">
-By transferring knowledge from large, diverse, task-agnostic datasets, modern machine learning models can enable solving specific downstream tasks either zero-shot or with small task-specific datasets to a high level of performance. 
-While this capability has been demonstrated in other fields such as computer vision, natural language processing or speech recognition, it remains to be shown in robotics, where the generalization and fine-tuning capabilities of the models are particularly critical due to the difficulty of collecting real-world robotic data.
-We argue that one of the keys to the success of such general robotic models lies with open-ended task-agnostic training, combined with high-capacity architectures that can absorb all of the diverse, robotic data.
-In this paper, we present a model class, dubbed Robotics Transformer, that exhibits promising scalable, pre-trained model properties.
-We verify our conclusions in a comprehensive study of different model classes and their ability to generalize as a function of the data size, model size, and data diversity based on a large-scale data collection on real robots performing real-world tasks.
+                  We study how vision-language models trained on Internet-scale data can be incorporated directly into end-to-end robotic control to boost generalization and enable emergent semantic reasoning. Our goal is to enable a single end-to-end trained model to both learn to map robot observations to actions and enjoy the benefits of large-scale pretraining on language and vision-language data from the web. To this end, we propose to co-fine-tune state-of-the-art vision-language models on both robotic trajectory data and Internet-scale vision-language tasks, such as visual question answering. In contrast to other approaches, we propose a simple, general recipe to achieve this goal: in order to fit both natural language responses and robotic actions into the same format, we express the actions as text tokens and incorporate them directly into the training set of the model in the same way as natural language tokens. We refer to such category of models as vision-language-action models (VLA) and instantiate an example of such a model, which we call RT-2. Our extensive evaluation (6k evaluation trials) shows that our approach leads to performant robotic policies and enables RT-2 to obtain a range of emergent capabilities from Internet-scale training. This includes significantly improved generalization to novel objects, the ability to interpret commands not present in the robot training data (such as placing an object onto a particular number or icon), and the ability to perform rudimentary reasoning in response to user commands (such as picking up the smallest or largest object, or the one closest to another object). We further show that incorporating chain of thought reasoning allows RT-2 to perform multi-stage semantic reasoning, for example figuring out which object to pick up for use as an improvised hammer (a rock), or which type of drink is best suited for someone who is too sleepy (an energy drink).
                 </p>            
             </div>
         </div>
 
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Approach Overview
+            </h3>
+            <p style="text-align:center;">
+                <img src="img/rt2_teaser.png" class="img-responsive">
+            </p>
+
+            <p class="text-justify">
+               RT-2 overview: we represent robot actions as another language, which can be cast into text tokens and trained together with Internet-scale vision-language datasets. 
+During inference, the text tokens are de-tokenized into robot actions, enabling closed loop control.
+This allows us to leverage the backbone and pretraining of vision-language models in learning robotic policies, transferring some of their generalization, semantic understanding, and reasoning to robotic control. 
+            </p>    
+        </div>
+        </div>
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -108,35 +121,108 @@ We verify our conclusions in a comprehensive study of different model classes an
                 </h3>
                
 		<p class="text-justify">		
-		Below, we show a few videos showing examples of RT-2 execution
-		</p>
-		<p style="test-align:center;">
-					<video id="v0" width="100%" playsinline muted loop controls>
-                       <source src="img/saycan_rt1_demo1_comp.mp4" type="video/mp4">
-                   </video>		
-        </p>
-		<p class="text-justify">
-
-         For the second task "Roses are red, violets are blue, bring me the rice chips from the drawer, and a napkin too." the execution 
-			and planning process are shown in the video below.
+		Below, we show a few videos showing examples of RT-2 execution. We show that RT-2 is able to generalize to new objects, new environments, and new tasks. RT-2 is able to generalize to a variety of real-world situations that require reasoning, symbol understanding, and human recognition. 
 		</p>
         <p style="test-align:center;">
-					<video id="v0" width="100%" playsinline muted loop controls>
-                       <source src="img/saycan_rt1_demo2_comp.mp4" type="video/mp4">
-                   </video>		
-        </p>
-        <p class="text-justify">
-
-         In the next example, we show SayCan is able to plan and execute a very long-horizon task involving 50+ steps.
-		</p>
-        <p style="test-align:center;">
-					<video id="v0" width="100%" playsinline muted loop controls>
-                       <source src="img/saycan_rt1_demo3_comp.mp4" type="video/mp4">
-                   </video>		
-
-	    </div>
-        </div>
+            <video id="v0" width="100%" playsinline muted loop controls autoplay>
+               <source src="videos/rt2_collout_compressed.mp4" type="video/mp4">
+           </video>		
+            </p>
         
+        RT-2 can exhibit signs of chain-of-thought reasoning similarly to vision-language models. We qualitatively observe that RT-2 with chain-of-thought reasoning is able to answer more sophisticated commands due to the fact that it is given a place to plan its actions in natural language first. 
+        This is a promising direction that provides some initial evidence that using LLMs or VLMs as planners can be combined with low-level policies in a single VLA model.
+		<p style="test-align:center;">
+					<video id="v0" width="100%" playsinline muted loop controls autoplay>
+                       <source src="videos/rt2cot_comp.mp4" type="video/mp4">
+                   </video>		
+        </p>
+
+        Finally, we show that RT-2 can work on another embodiment, Language Table environment. 
+        We show that RT-2 can handle real-world out-of-distribution behaviors in the Language Table environment. 
+
+        <div id="carouselExampleCaptions3" class="carousel slide carousel-dark carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleCaptions3" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions3" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions3" data-bs-slide-to="2" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions3" data-bs-slide-to="3" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions3" data-bs-slide-to="4" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions3" data-bs-slide-to="5" aria-label="Slide 2"></button>
+
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="100000000000">
+                <video id="v0" width="100%" playsinline="" muted="" loop="" controls="" autoplay="">
+                    <source src="videos/langtable/successes/01_ketchup_mustard.mp4" type="video/mp4">
+                </video>	
+                <div class="carousel-caption d-none d-md-block">
+                  <!-- <p>Some representative placeholder content for the second slide.</p> -->
+                </div>
+              </div>
+              <div class="carousel-item" data-bs-interval="100000000000">
+                <video id="v0" width="100%" playsinline="" muted="" loop="" controls="" autoplay="">
+                    <source src="videos/langtable/successes/02_tabasco.mp4" type="video/mp4">
+                </video>	
+                <div class="carousel-caption d-none d-md-block">
+                  <!-- <p>Some representative placeholder content for the second slide.</p> -->
+                </div>
+              </div>
+              <div class="carousel-item" data-bs-interval="100000000000">
+                <video id="v0" width="100%" playsinline="" muted="" loop="" controls="" autoplay="">
+                    <source src="videos/langtable/successes/03_ketchup_blue_swap.mp4" type="video/mp4">
+                </video>	
+                <div class="carousel-caption d-none d-md-block">
+                  <!-- <p>Some representative placeholder content for the second slide.</p> -->
+                </div>
+              </div>
+              <div class="carousel-item" data-bs-interval="100000000000">
+                <video id="v0" width="100%" playsinline="" muted="" loop="" controls="" autoplay="">
+                    <source src="videos/langtable/successes/04_red_controller.mp4" type="video/mp4">
+                </video>	
+                <div class="carousel-caption d-none d-md-block">
+                  <!-- <p>Some representative placeholder content for the second slide.</p> -->
+                </div>
+              </div>
+              <div class="carousel-item" data-bs-interval="100000000000">
+                <video id="v0" width="100%" playsinline="" muted="" loop="" controls="" autoplay="">
+                    <source src="videos/langtable/successes/05_white_banana.mp4" type="video/mp4">
+                </video>	
+                <div class="carousel-caption d-none d-md-block">
+                  <!-- <p>Some representative placeholder content for the second slide.</p> -->
+                </div>
+              </div>
+              <div class="carousel-item" data-bs-interval="100000000000">
+                <video id="v0" width="100%" playsinline="" muted="" loop="" controls="" autoplay="">
+                    <source src="videos/langtable/fails/fail_01_marker.mp4" type="video/mp4">
+                </video>	
+                <div class="carousel-caption d-none d-md-block">
+                  <!-- <p>Some representative placeholder content for the second slide.</p> -->
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" style="max-height:21%; margin-top:21%;" data-bs-target="#carouselExampleCaptions3" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" style="max-height:21%; margin-top:21%;" data-bs-target="#carouselExampleCaptions3" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+        </div>
+
+
     </div>
+    </div>
+    <script>
+    const myCarousel3 = document.getElementById('carouselExampleCaptions3')
+    myCarousel3.addEventListener('slide.bs.carousel', event => {
+        myCarousel3.getElementsByClassName("carousel-item")[event.from].getElementsByTagName("video")[0].pause();
+        myCarousel3.getElementsByClassName("carousel-item")[event.to].getElementsByTagName("video")[0].play();
+    })
+
+
+    </script>
 </body>
 </html>
