@@ -101,17 +101,17 @@
                     <ul class="nav nav-pills nav-justified">
                         <li>
                             <a href="assets/rt2.pdf">
-                            <image src="img/paper_small2.png" height="60px">
+                            <image src="img/paper.png" height="60px">
                                 <h4><strong>Paper</strong></h4>
                             </a>
                         </li>
 
-                        <li>
+                        <!-- <li>
                             <a href="https://youtu.be/UuKAp9a6wMs">
                             <image src="img/youtube_icon.png" height="60px">
                                 <h4><strong>Video</strong></h4>
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="http://ai.googleblog.com/2022/12/rt-1-robotics-transformer-for-real.html">
                             <image src="img/deepmind.svg" height="60px">
@@ -125,16 +125,17 @@
            
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                
+                <video id="v0" width="100%" playsinline autoplay muted loop>
+                    <source src="videos/rt2simple.mp4" type="video/mp4">
+                </video>    
+
                 <h3>
                     Abstract
                 </h3>
                 <p class="text-justify">
                   We study how vision-language models trained on Internet-scale data can be incorporated directly into end-to-end robotic control to boost generalization and enable emergent semantic reasoning. Our goal is to enable a single end-to-end trained model to both learn to map robot observations to actions and enjoy the benefits of large-scale pretraining on language and vision-language data from the web. To this end, we propose to co-fine-tune state-of-the-art vision-language models on both robotic trajectory data and Internet-scale vision-language tasks, such as visual question answering. In contrast to other approaches, we propose a simple, general recipe to achieve this goal: in order to fit both natural language responses and robotic actions into the same format, we express the actions as text tokens and incorporate them directly into the training set of the model in the same way as natural language tokens. We refer to such category of models as vision-language-action models (VLA) and instantiate an example of such a model, which we call RT-2. Our extensive evaluation (6k evaluation trials) shows that our approach leads to performant robotic policies and enables RT-2 to obtain a range of emergent capabilities from Internet-scale training. This includes significantly improved generalization to novel objects, the ability to interpret commands not present in the robot training data (such as placing an object onto a particular number or icon), and the ability to perform rudimentary reasoning in response to user commands (such as picking up the smallest or largest object, or the one closest to another object). We further show that incorporating chain of thought reasoning allows RT-2 to perform multi-stage semantic reasoning, for example figuring out which object to pick up for use as an improvised hammer (a rock), or which type of drink is best suited for someone who is too sleepy (an energy drink).
                 </p>       
-            <video id="v0" width="100%" playsinline autoplay muted loop>
-                       <source src="videos/rt2simple.mp4" type="video/mp4">
-                   </video>     
+             
             </div>
         </div>
 
@@ -168,7 +169,7 @@ This allows us to leverage the backbone and pretraining of vision-language model
 		</p>
         <p style="test-align:center;">
             <video id="v0" width="100%" playsinline muted loop controls autoplay>
-               <source src="videos/rt2_collout_compressed.mp4" type="video/mp4">
+               <source src="videos/rt2_videos_compressed.mp4" type="video/mp4">
            </video>		
             </p>
         
