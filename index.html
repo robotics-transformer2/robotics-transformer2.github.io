@@ -138,13 +138,14 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="nav justify-content-center">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          More Research
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">RT-1</a>
-        </div>
+      <li class="nav-text">
+        <a>More Reseach: </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="robotics-transformer1.github.io">RT-1 <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">RT-2</a>
       </li>
     </ul>
   </div>
@@ -261,12 +262,22 @@
             <h3>
                 Results
             </h3>
+            
+            <p class="text-justify">
+               We start the evaluation of RT-2 with testing the emergent properties of the model. Since we can't fully anticipate the extend of RT-2 generalization, we present a number of previously unseen objects to the robot and evaluate its performance on tasks that require semantic understanding that goes far beyond the robot data that the model was fine-tuned on. You can see qualitative examples of successful tasks that we found surprising below: 
+            </p> 
+            
             <p style="text-align:center;">
                 <img src="img/mosaic.png" class="img-responsive">
             </p>
 
             <p class="text-justify">
-               Something about emergent properties 
+               To quantify the emergent properties of RT-2, we categorize them into: symbol understanding, reasoning and human recognition and evaluate two variants of RT-2:
+               <ul>
+                <li> RT-2 trained on top of <a href="palm-e.github.io">PaLM-E</a> (12B parameters),</li>
+                <li> RT-2 trained on top of <a href="https://arxiv.org/abs/2305.18565">PaLI-X</a> (55B parameters) </li>
+               </ul>
+             against its predecessor - <a href=robotics-transformer1.github.io">RT-1</a> and another visual pre-training method - <a href="https://eai-vc.github.io/">VC-1</a>. The results below demonstrate a significant improvement of RT-2 compared to the baselines (3x).
             </p>    
             
             <p style="text-align:center;">
@@ -274,7 +285,7 @@
             </p>
             
             <p class="text-justify">
-               Here we talk about generalization evals
+               To further test the generalization capabilities of RT-2, we evaluate it across similar generalization axes as done in <a href=robotics-transformer1.github.io">previous</a> <a href=https://arxiv.org/abs/2307.03659">studies</a>: 
             </p>   
             
             <p style="text-align:center;">
@@ -282,15 +293,20 @@
             </p>
             
              <p class="text-justify">
-               Here we present the generalization eval results
+               We evaluate the two variants of RT-2, together with more baselines in a blind A/B study and present the results across multiple generalization axes below. The resulting generalization improvement of RT-2 is approximately 2x.
             </p>   
             
             <p style="text-align:center;">
-                <img src="img/rt2_emergent.png" class="img-responsive">
+                <img src="img/main.png" class="img-responsive">
             </p>
             
              <p class="text-justify">
-               We do an ablation
+               To better understand how different design choices of RT-2 impact the generalization results we ablate the two most significant design decisions: 
+               <ul>
+                <li>the model size: 5B vs 55B for the RT-2 PaLI-X variant,</li>
+                <li> training recipe: training the model from scratch vs fine-tuning vs co-fine-tuning. </li>
+                </ul>
+                The results below indicate the importance of the pre-trained weights of the vision-langauge model as well as the trend of the model generalization improving with the model size.
             </p>   
             
             <p style="text-align:center;">
@@ -298,7 +314,7 @@
             </p>
             
            <p class="text-justify">
-               To make results reproducible we also train it on langtable
+               We also evaluate RT-2 on an open-source <a href="https://github.com/google-research/language-table">language-table benchmark</a> where we train RT-2 on simulation and real language-table data. In addition to achieving the state-of-the-art result on the simulation benchmark (90% vs 77% of the previous SoTA), we evaluate the resulting model in the real world. We demonstrate RT-2 generalization capabilities with the objects never seen in language table datasets before such as ketchup bottle, banana and others:
             </p>   
             
             <p style="text-align:center;">
@@ -306,12 +322,16 @@
             </p>
             
             <p class="text-justify">
-               Lastly CoT
+               Lastly, since the resulting RT-2 PaLM-E version of the model is a vision-language-action model that can act as an LLM, VLM and a robotic controller all in a single neural network, we demonstrate that RT-2 can perform chain-of-thought reasoning for control. In the examples below RT-2 first outputs a few reasoning steps in natural language which are then followed by the string: `Action:` and the resulting action tokens. 
             </p>   
             
             <p style="text-align:center;">
                 <img src="img/CoT.png" class="img-responsive">
             </p>
+            
+            <p class="text-justify">
+               This shows the promise of fully integrated VLA models that can transfer not only some of the semantic concepts across different modalities (e.g. generalize robot actions to new semantic categories) but also some of the properties of the underlying models (e.g. chain-of-thought reasoning).
+            </p>   
         </div>
         </div>
 
@@ -423,7 +443,7 @@ execute_plan()" onclick="populateInstruction(this);">
             </p>
         
         RT-2 can exhibit signs of chain-of-thought reasoning similarly to vision-language models. We qualitatively observe that RT-2 with chain-of-thought reasoning is able to answer more sophisticated commands due to the fact that it is given a place to plan its actions in natural language first. 
-        This is a promising direction that provides some initial evidence that using LLMs or VLMs as planners can be combined with low-level policies in a single VLA model.
+        This is a promising direction that provides some initial evidence that using LLMs or VLMs as planners can be combined with low-level policies in a single VLA model. <br><br>
 		<p style="test-align:center;">
 					<video id="v0" width="100%" playsinline muted loop controls autoplay>
                        <source src="videos/rt2cot_comp.mp4" type="video/mp4">
@@ -431,7 +451,7 @@ execute_plan()" onclick="populateInstruction(this);">
         </p>
 
         Finally, we show that RT-2 can work on another embodiment, Language Table environment. 
-        We show that RT-2 can handle real-world out-of-distribution behaviors in the Language Table environment. 
+        We show that RT-2 can handle real-world out-of-distribution behaviors in the Language Table environment. <br><br>
 
         <div id="carouselExampleCaptions3" class="carousel slide carousel-dark carousel-fade" data-bs-ride="carousel">
             <div class="carousel-indicators">
