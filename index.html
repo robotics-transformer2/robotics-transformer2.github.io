@@ -106,13 +106,13 @@
             <div class="col-md-12 text-center">
                 <ul class="list-inline">
                 <br>
-                <li>Anthony Brohan</li> <li>Noah Brown</li> <li>Justice Carbajal</li> <li>Yevgen Chebotar</li> <li>Joseph Dabis</li> <li>Chelsea Finn</li> <li>Keerthana Gopalakrishnan</li> <br>
-                 <li>Karol Hausman</li> <li>Alex Herzog</li> <li>Jasmine Hsu</li> <li>Julian Ibarz</li> <li>Brian Ichter</li> <li>Alex Irpan</li> <li>Tomas Jackson</li> <br>
-                  <li>Sally Jesmonth</li> <li>Nikhil Joshi</li> <li>Ryan Julian</li> <li>Dmitry Kalashnikov</li> <li>Yuheng Kuang</li> <li>Isabel Leal </li> <li>Kuang-Huei Lee</li> <br>
-                  <li>Sergey Levine</li> <li>Yao Lu</li> <li>Utsav Malla</li> <li>Deeksha Manjunath</li> <li>Igor Mordatch</li> <li>Ofir Nachum</li> <li>Carolina Parada</li> <br>
-                 <li>Jodilyn Peralta</li> <li>Emily Perez</li> <li>Karl Pertsch</li> <li>Jornell Quiambao</li> <li>Kanishka Rao</li> <li>Michael Ryoo</li> <li>Grecia Salazar</li> <br>
-                 <li>Pannag Sanketi</li> <li>Kevin Sayed</li> <li>Jaspiar Singh</li> <li>Sumedh Sontakke</li> <li>Austin Stone</li> <li>Clayton Tan</li> <li>Huong Tran</li>  <br>
-                 <li>Vincent Vanhoucke</li> <li>Steve Vega</li> <li>Quan Vuong</li> <li>Fei Xia</li> <li>Ted Xiao</li> <li>Peng Xu</li> <li>Sichun Xu</li> <li>Tianhe Yu</li> <li>Brianna Zitkovich</li> <br>
+                <li>Montse Gonzalez Arenas</li> <li>Anthony Brohan</li> <li>Noah Brown</li> <li>Justice Carbajal</li> <li>Yevgen Chebotar</li> <li>Xi Chen</li> <li>Krzysztof Choromanski</li>
+                 <br> <li>Tianli Ding</li> <li>Danny Driess</li> <li>Avinava Dubey</li> <li>Chelsea Finn</li> <li>Pete Florence</li> <li>Chuyuan Fu</li> <li>Keerthana Gopalakrishnan</li>
+                 <br> <li>Kehang Han</li> <li>Karol Hausman</li> <li>Alex Herzog</li> <li>Jasmine Hsu</li> <li>Brian Ichter</li> <li>Alex Irpan</li> <li>Nikhil Joshi</li> <li>Ryan Julian</li> 
+                 <br> <li>Dmitry Kalashnikov</li> <li>Yuheng Kuang</li> <li>Isabel Leal </li> <li>Lisa Lee</li> <li>Tsang-Wei Edward Lee</li> <li>Sergey Levine</li> <li>Yao Lu</li> <li>Henryk Michalewski</li> 
+                 <br> <li>Igor Mordatch</li> <li>Karl Pertsch</li> <li>Kanishka Rao</li> <li>Krista Reymann</li> <li>Michael Ryoo</li> <li>Grecia Salazar</li> <li>Pannag Sanketi</li> <li>Pierre Sermanet</li>
+                 <br>  <li>Jaspiar Singh</li> <li>Anikait Singh</li> <li>Radu Soricut</li> <li>Huong Tran</li> <li>Vincent Vanhoucke</li> <li>Quan Vuong</li> <li>Ayzaan Wahid</li> <li>Stefan Welker</li>
+                 <br> <li>Paul Wohlhart</li>  <li>Jialin Wu</li> <li>Fei Xia</li> <li>Ted Xiao</li> <li>Peng Xu</li> <li>Sichun Xu</li> <li>Tianhe Yu</li> <li>Brianna Zitkovich</li> <br>
                 <br>
 			<b><i> Authors listed in alphabetical order (see paper appendix for contribution statement). </i></b>
 		<br><br>
@@ -173,16 +173,92 @@
                 Approach Overview
             </h3>
             <p style="text-align:center;">
-                <img src="img/rt2_teaser.png" class="img-responsive">
+                <img src="img/fig1.png" class="img-responsive">
             </p>
 
             <p class="text-justify">
-               RT-2 overview: we represent robot actions as another language, which can be cast into text tokens and trained together with Internet-scale vision-language datasets. 
-During inference, the text tokens are de-tokenized into robot actions, enabling closed loop control.
-This allows us to leverage the backbone and pretraining of vision-language models in learning robotic policies, transferring some of their generalization, semantic understanding, and reasoning to robotic control. 
+               To make RT-2 easily compatible with large, pre-trained vision-language models, our recipe is simple: we represent robot actions as another language, which can be cast into text tokens and trained together with Internet-scale vision-language datasets. In particular, we co-fine-tune (a combination of fine-tuning and co-training where we keep some of the old vision & text data around) an existing vision-language model with robot data. The robot data includes the current image, language command and the robot action at the particular time step. We represent the robot actions as a following text string:  
+
             </p>    
+            
+            <p style="text-align:center;">
+                <img src="img/fig3.png" class="img-responsive">
+            </p>
+            
+            <p class="text-justify">
+               Since actions are represented as text strings, one can think of them as another language that allows us to operate the robot. This simple representation makes it straightforward to fine-tune any existing vision-language model and turn it into a vision-language-action model <br><br>
+               During inference, the text tokens are de-tokenized into robot actions, enabling closed loop control.This allows us to leverage the backbone and pretraining of vision-language models in learning robotic policies, transferring some of their generalization, semantic understanding, and reasoning to robotic control.  
+            </p>   
+            
+            <p style="text-align:center;">
+                <img src="img/fig2.png" class="img-responsive">
+            </p>
         </div>
         </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+            <h3>
+                Results
+            </h3>
+            <p style="text-align:center;">
+                <img src="img/mosaic.png" class="img-responsive">
+            </p>
+
+            <p class="text-justify">
+               Something about emergent properties 
+            </p>    
+            
+            <p style="text-align:center;">
+                <img src="img/rt2_emergent.png" class="img-responsive">
+            </p>
+            
+            <p class="text-justify">
+               Here we talk about generalization evals
+            </p>   
+            
+            <p style="text-align:center;">
+                <img src="img/generalization_eval.png" class="img-responsive">
+            </p>
+            
+             <p class="text-justify">
+               Here we present the generalization eval results
+            </p>   
+            
+            <p style="text-align:center;">
+                <img src="img/rt2_emergent.png" class="img-responsive">
+            </p>
+            
+             <p class="text-justify">
+               We do an ablation
+            </p>   
+            
+            <p style="text-align:center;">
+                <img src="img/ablations.png" class="img-responsive">
+            </p>
+            
+           <p class="text-justify">
+               To make results reproducible we also train it on langtable
+            </p>   
+            
+            <p style="text-align:center;">
+                <img src="img/langtable.png" class="img-responsive">
+            </p>
+            
+            <p class="text-justify">
+               Lastly CoT
+            </p>   
+            
+            <p style="text-align:center;">
+                <img src="img/CoT.png" class="img-responsive">
+            </p>
+        </div>
+        </div>
+
+
+
+
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -303,11 +379,11 @@ This allows us to leverage the backbone and pretraining of vision-language model
                 </h3>
                 <div class="form-group col-md-10 col-md-offset-1">
                     <textarea id="bibtex" class="form-control" readonly>
-@inproceedings{rt12022arxiv,
-    title={RT-1: Robotics Transformer for Real-World Control at Scale},
-    author={Anthony	Brohan and  Noah Brown and  Justice Carbajal and  Yevgen Chebotar and  Joseph Dabis and  Chelsea Finn and  Keerthana Gopalakrishnan and  Karol Hausman and  Alex Herzog and  Jasmine Hsu and  Julian Ibarz and  Brian Ichter and  Alex Irpan and  Tomas Jackson and  Sally Jesmonth and  Nikhil Joshi and  Ryan Julian and  Dmitry Kalashnikov and  Yuheng Kuang and  Isabel Leal and  Kuang-Huei Lee and  Sergey Levine and  Yao Lu and  Utsav Malla and  Deeksha Manjunath and  Igor Mordatch and  Ofir Nachum and  Carolina Parada and  Jodilyn Peralta and  Emily Perez and  Karl Pertsch and  Jornell Quiambao and  Kanishka Rao and  Michael Ryoo and  Grecia Salazar and  Pannag Sanketi and  Kevin Sayed and  Jaspiar Singh and  Sumedh Sontakke and  Austin Stone and  Clayton Tan and  Huong Tran and  Vincent Vanhoucke and Steve Vega and  Quan Vuong and  Fei Xia and  Ted Xiao and  Peng Xu and  Sichun Xu and  Tianhe Yu and  Brianna Zitkovich},
-    booktitle={arXiv preprint arXiv:2212.06817},
-    year={2022}
+@inproceedings{rt22023arxiv,
+    title={RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control},
+    author={Montse Gonzalez Arenas and Anthony Brohan and Noah Brown and Justice Carbajal and Yevgen Chebotar and Xi Chen and Krzysztof Choromanski and Tianli Ding and Danny Driess and Avinava Dubey and Chelsea Finn and Pete Florence and Chuyuan Fu and Keerthana Gopalakrishnan and Kehang Han and Karol Hausman and Alex Herzog and Jasmine Hsu and Brian Ichter and Alex Irpan and Nikhil Joshi and Ryan Julian and Dmitry Kalashnikov and Yuheng Kuang and Isabel Leal  and Lisa Lee and Tsang-Wei Edward Lee and Sergey Levine and Yao Lu and Henryk Michalewski and Igor Mordatch and Karl Pertsch and Kanishka Rao and Krista Reymann and Michael Ryoo and Grecia Salazar and Pannag Sanketi and Pierre Sermanet and Jaspiar Singh and Anikait Singh and Radu Soricut and Huong Tran and Vincent Vanhoucke and Quan Vuong and Ayzaan Wahid and Stefan Welker and Paul Wohlhart and  Jialin Wu and Fei Xia and Ted Xiao and Peng Xu and Sichun Xu and Tianhe Yu and Brianna Zitkovich},
+    booktitle={TODO},
+    year={2023}
 }</textarea>
                 </div>
             </div>
@@ -320,7 +396,7 @@ This allows us to leverage the backbone and pretraining of vision-language model
                     Acknowledgements
                 </h3>
                 <p class="text-justify">
-The authors would like to acknowledge Aleksandra Faust, Andy Christiansen, Chuyuan Fu, Daniel Kappler, David Rendleman, Eric Jang, Jessica Gomez, Jessica Lin, Jie Tan, Josh Weaver, Justin Boyd, Krzysztof Choromanski, Matthew Bennice, Mengyuan Yan, Mrinal Kalakrishnan, Nik Stewart, Paul Wohlhart, Peter Pastor, Pierre Sermanet, Wenlong Lu, Zhen Yu Song, Zhuo Xu, and the greater teams at Robotics at Google and Everyday Robots for their feedback and contributions.
+The authors would like to acknowledge Jodi Lynn Andres, Carolina Parada, Joseph Dabis, Rochelle Dela Cruz, Jessica Gomez, Gavin Gonzalez, Tomas Jackson, Jie Tan, Scott Lehrer, Dee M, Utsav Malla, Sarah Nguyen, Emily Perez, Elio Prado, Jornell Quiambao, Clayton Tan, Jodexty Therlonge, Wenxuan Zhou, and the greater Google DeepMind team for their feedback and contributions.
                     <br><br>
                 The website template was borrowed from <a href="http://jonbarron.info/">Jon Barron</a>.
                 </p>
