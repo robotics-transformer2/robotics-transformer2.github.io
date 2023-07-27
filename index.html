@@ -36,12 +36,10 @@
     <link rel="stylesheet" href="css/app.css">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    
-    
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
     
@@ -71,6 +69,68 @@
 
 <body>
 
+<!--bootstrap full page image-->
+
+<style>
+    /* Custom styles to create a full-page image */
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .full-page-image {
+      background-image: url('img/rt2teaser2.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100%;
+      width: 100%;
+      position: relative;
+    }
+
+    .overlay {
+      /* Add a semi-transparent overlay to the image if needed */
+      background-color: rgba(0, 0, 0, 0.2);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+    }
+
+    .content {
+      /* Center your content vertically and horizontally */
+      position: absolute;
+      bottom: 0;
+      /* right: 25; */
+      /* transform: translate(-50%, -50%); */
+      z-index: 2;
+      color: #fff; /* Set the color for your content */
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+
+    .banner-state {
+    height: 150px; /* or whatever height you want for the banner */
+    transition: height 0.5s ease;
+    }
+
+    .no-content .content {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+  </style>
+
+
+<div class="full-page-image">
+    <!-- You can add an overlay and content inside the container -->
+    <div class="overlay"></div>
+    <div class="content">
+      <h1>RT2: Vision-Language-Action</h1>
+      <p>RT-2 model picking up object given the prompt "pick up the extinct animal."</p>
+    </div>
+  </div>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -196,7 +256,6 @@
         </div>
         </div>
 
-
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
             <h3>
@@ -257,7 +316,94 @@
         </div>
 
 
+        <div class="row" id="demo">
+            <div class="col-md-8 col-md-offset-2 col-xs-12">
+                <h3>
+                    Results
+                </h3>
+                <p>
+                <p class="text-justify">
+                </p>
+                </p>
 
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <img src="videos/sim/bowl2.png" width="100%"
+                            alt=" User instruction: Flp the bowl. [sep]import numpy as np\\reset_reward()  # This is a new task so reset reward; otherwise we don't need it\\set_l2_distance_reward('palm', 'bowl')\\set_obj_orientation_reward('bowl', np.deg2rad(180))\\execute_plan(2)"
+                            onclick="populateInstruction(this);">
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <img src="videos/sim/open_faucet.png" width="100%"
+                            alt="User instruction: Turn on the faucet.[sep]import numpy as np\\reset_reward() # This is a new task so reset reward; otherwise we don't need it\\set_l2_distance_reward('palm', 'faucet_handle')\\set_joint_fraction_reward('faucet', 1) # Open the faucet\\execute_plan(4)"
+                            onclick="populateInstruction(this);">
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <img src="videos/sim/upright_box.png" width="100%"
+                            alt="User instruction: Make the box upright.[sep]import numpy as np\\reset_reward()  # This is a new task so reset reward; otherwise we don't need it\\set_l2_distance_reward('palm', 'box')\\set_obj_orientation_reward('box', np.deg2rad(90))\\execute_plan()"
+                            onclick="populateInstruction(this);">
+                    </div>
+                </div>
+                <p></p>
+
+                <div class="row border rounded" style="padding-top:10px; padding-bottom:10px;">
+                    <div class="col-md-12">
+                        <!-- bootstrap buttons -->
+                        <p></p>
+                        <button type="button" class="btn btn-primary" id="instruction1" onclick="populateDemo(this.imgs, this)">Candidate Instruction 1</button>
+                        <button type="button" class="btn btn-primary" id="instruction2" onclick="populateDemo(this.imgs, this)">Candidate Instruction 2</button>
+                        <p></p>
+                    </div>
+                    <div class="col-md-6">
+                        <video width="100%" height="100%" id="demo-video" autoplay loop muted webkit-playsinline playsinline onclick="setAttribute('controls', 'true');">
+                            <source id="expandedImg" src="videos/placeholder.mp4" type="video/mp4">
+                        </video>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div id="imgtext">Prompt text in gray.</div>
+                        <div>
+                            <pre><code class="language-python" id="answer">L2R response shown within code block.</code></pre>
+                        </div>
+
+                    </div>
+
+                </div>
+                <p></p>
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <img src="videos/sim/face_sunset.png" width="100%"
+                            alt=" User instruction: It's late in the afternoon, make the robot head towards the sunset.[sep]reset_reward()\\set_torso_targets(0.3, np.deg2rad(0), np.deg2rad(0), None, (0.5, 0.0), np.pi, None)\\\\set_feet_stepping_parameters('front_left', 2.0, 0.5, 0.0, 0.1, 0.1, True)\\set_feet_stepping_parameters('back_left', 2.0, 0.5, 0.5, 0.1, 0.1, True)\\set_feet_stepping_parameters('front_right', 2.0, 0.5, 0.5, 0.1, 0.1, True)\\set_feet_stepping_parameters('back_right', 2.0, 0.5, 0.0, 0.1, 0.1, True)\\\\execute_plan()"
+                            onclick="populateInstruction(this);">
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <img src="videos/sim/biped.png" width="100%" alt="User instruction: Stand up on two back feet like a human.[sep]import numpy as np
+
+reset_reward()
+set_torso_targets(0.65, np.deg2rad(90), np.deg2rad(0), (0.0, 0.0), None, 0, None)
+
+set_feet_pos_parameters('front_left', 0.65, None, None)
+set_feet_pos_parameters('back_left', 0.0, None, None)
+set_feet_pos_parameters('front_right', 0.65, None, None)
+set_feet_pos_parameters('back_right', 0.0, None, None)
+
+execute_plan()" onclick="populateInstruction(this);">
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-4">
+                        <img src="videos/sim/sit.png" width="100%" alt="User instruction: Sit like a dog.[sep]import numpy as np
+
+reset_reward()
+set_torso_targets(0.15, np.deg2rad(45), np.deg2rad(0), (0.0, 0.0), None, 0, None)
+
+set_feet_pos_parameters('front_left', 0.0, None, None)
+set_feet_pos_parameters('back_left', 0.0, None, None)
+set_feet_pos_parameters('front_right', 0.0, None, None)
+set_feet_pos_parameters('back_right', 0.0, None, None)
+
+execute_plan()" onclick="populateInstruction(this);">
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <div class="row">
@@ -410,4 +556,81 @@ The authors would like to acknowledge Jodi Lynn Andres, Carolina Parada, Joseph 
 </div>
 </div>        
 </body>
+<script>
+
+    timeoutIds = [];
+
+
+    function populateInstruction(imgs) {
+        var qa = imgs.alt.split("[sep]");
+        var instruction1 = document.getElementById("instruction1");
+        var instruction2 = document.getElementById("instruction2");
+        instruction1.innerHTML = qa[0];
+        instruction1.imgs = imgs;
+        instruction2.innerHTML = qa[0] + "ahhhh";
+        instruction2.imgs = imgs;
+    }
+
+    function populateDemo(imgs, button) {
+        // Get the expanded image
+        var expandImg = document.getElementById("expandedImg");
+        // Get the image text
+        var imgText = document.getElementById("imgtext");
+        var answer = document.getElementById("answer");
+
+        // Use the same src in the expanded image as the image being clicked on from the grid
+        expandImg.src = imgs.src.replace(".png", ".mp4");
+        var video = document.getElementById('demo-video');
+        // or video = $('.video-selector')[0];
+        video.pause()
+        video.load();
+        video.play();
+        video.removeAttribute('controls');
+        
+        console.log(expandImg.src);
+        // Use the value of the alt attribute of the clickable image as text inside the expanded image
+        var qa = imgs.alt.split("[sep]");
+        var task = button.innerHTML;
+        imgText.innerHTML = task;
+        answer.innerHTML = "";
+        // Show the container element (hidden with CSS)
+        expandImg.parentElement.style.display = "block";
+        for (timeoutId of timeoutIds) {
+            clearTimeout(timeoutId);
+        }
+        typeWriter(qa[1], 0, task);
+    }
+
+    function typeWriter(txt, i, q) {
+        var imgText = document.getElementById("imgtext");
+        if (imgText.innerHTML == q) {
+            if (i < txt.length) {
+                if (txt.charAt(i) == "\\") {
+                    answer.innerHTML += "\n";
+                    i += 1;
+                } else {
+                    answer.innerHTML += txt.charAt(i);
+                }
+                i++;
+                timeoutIds.push(setTimeout(typeWriter, 5, txt, i, q));
+            }
+        }
+    }
+
+    window.addEventListener("scroll", function() {
+    let imageDiv = document.querySelector('.full-page-image');
+
+    // Check if page is scrolled
+    if (window.scrollY > 150) { // You can adjust this value based on your requirement
+        imageDiv.classList.add('banner-state');
+        imageDiv.classList.add('no-content');
+    } else {
+        imageDiv.classList.remove('banner-state');
+        imageDiv.classList.remove('no-content');
+    }
+});
+
+
+</script>
+
 </html>
