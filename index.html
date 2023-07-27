@@ -238,7 +238,8 @@
             </p>
 
             <p class="text-justify">
-               To make RT-2 easily compatible with large, pre-trained vision-language models, our recipe is simple: we represent robot actions as another language, which can be cast into text tokens and trained together with Internet-scale vision-language datasets. In particular, we co-fine-tune (a combination of fine-tuning and co-training where we keep some of the old vision & text data around) an existing vision-language model with robot data. The robot data includes the current image, language command and the robot action at the particular time step. We represent the robot actions as a following text string:  
+               To make RT-2 easily compatible with large, pre-trained vision-language models, our recipe is simple: we represent robot actions as another language, which can be cast into text tokens and trained together with Internet-scale vision-language datasets. In particular, we co-fine-tune (a combination of fine-tuning and co-training where we keep some of the old vision & text data around) an existing vision-language model with robot data. The robot data includes the current image, language command and the robot action at the particular time step. We represent the robot actions as text strings as shown below. An example of such a string could be a sequence of robot action token numbers: “1 128 91 241 5 101 127 217”.
+  
 
             </p>    
             
@@ -326,7 +327,7 @@
             </p>   
             
             <p style="text-align:center;">
-                <img src="img/CoT.png" class="img-responsive">
+                <img src="img/CoT2.png" class="img-responsive">
             </p>
             
             <p class="text-justify">
