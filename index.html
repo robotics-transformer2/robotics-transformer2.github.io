@@ -112,16 +112,16 @@
       background-color: rgba(0, 0, 0, 0.4);
     }
 
-
     .banner-state {
-    height: 500px; /* or whatever height you want for the banner */
-    transition: height 0.5s ease;
+    height: 350px; /* or whatever height you want for the banner */
+    transition: height 1s ease;
     }
 
     .no-content .content {
         opacity: 0;
-        transition: opacity 0.5s ease;
+        transition: opacity 1s ease;
     }
+    
   </style>
 
 
@@ -663,10 +663,8 @@ The authors would like to acknowledge Jodi Lynn Andres, Carolina Parada, Joseph 
     if (window.scrollY > 150) { // You can adjust this value based on your requirement
         imageDiv.classList.add('banner-state');
         imageDiv.classList.add('no-content');
-    } else {
-        imageDiv.classList.remove('banner-state');
-        imageDiv.classList.remove('no-content');
-    }
+        imageDiv.style.backgroundImage = `url(img/teaser4.png)`;
+    };
 });
 
 
