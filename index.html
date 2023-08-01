@@ -129,7 +129,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 1;
+    opacity: 0;
     transition: opacity 0.5s ease;
     }
     
@@ -674,13 +674,26 @@ The authors would like to acknowledge Jodi Lynn Andres, Carolina Parada, Joseph 
         }
     }
 
+    document.addEventListener('DOMContentLoaded', function() {
+    const videoElement = document.getElementById('bg-video');
+
+    // When the video metadata is loaded
+    videoElement.addEventListener('loadedmetadata', function() {
+        // Start playing the video
+        // videoElement.play();
+        // Gradually fade in the video after it finishes loading
+        videoElement.style.opacity = 1.0;
+        });
+    });
+    
     window.addEventListener("scroll", function() {
     let imageDiv = document.querySelector('.full-page-image');
     const videoElement = document.getElementById('bg-video');
+    
 
 
     if (window.scrollY > 75) { 
-        videoElement.style.opacity = '0'; 
+        videoElement.style.opacity = 0; 
     }
     // Check if page is scrolled
     if (window.scrollY > 200) { // You can adjust this value based on your requirement
