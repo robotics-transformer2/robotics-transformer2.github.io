@@ -121,10 +121,25 @@
         opacity: 0;
         transition: opacity 1s ease;
     }
+
+    #bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    }
     
   </style>
 
 <div class="full-page-image">
+    <video id="bg-video" autoplay loop muted playsinline>
+        <source src="videos/rt2_teaser.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     <!-- You can add an overlay and content inside the container -->
     <div class="overlay"></div>
 
@@ -661,9 +676,14 @@ The authors would like to acknowledge Jodi Lynn Andres, Carolina Parada, Joseph 
 
     window.addEventListener("scroll", function() {
     let imageDiv = document.querySelector('.full-page-image');
+    const videoElement = document.getElementById('bg-video');
 
+
+    if (window.scrollY > 75) { 
+        videoElement.style.opacity = '0'; 
+    }
     // Check if page is scrolled
-    if (window.scrollY > 150) { // You can adjust this value based on your requirement
+    if (window.scrollY > 200) { // You can adjust this value based on your requirement
         imageDiv.classList.add('banner-state');
         imageDiv.classList.add('no-content');
         imageDiv.style.backgroundImage = `url(img/teaser4.jpg)`;
