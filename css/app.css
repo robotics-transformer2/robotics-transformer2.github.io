@@ -191,10 +191,3 @@ span.highlight {
   background-position: 50%;
   background-size: 100% 100%;
 }
-
-
-.navigation-container {
-    width: 600px;
-    margin: 0 auto; /* This centers the container horizontally on the screen */
-}
-
